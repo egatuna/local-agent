@@ -7,3 +7,7 @@ workspace/
 __pycache__/
 *.pyc
 .DS_Store
+
+# graphify local state (machine-specific)
+graphify-out/.graphify_python
+graphify-out/.graphify_root
