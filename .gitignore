@@ -1,0 +1,9 @@
+# Agent scratch space — regenerated every run
+workspace/
+
+# Run transcripts — local debugging only
+.runs/
+
+__pycache__/
+*.pyc
+.DS_Store

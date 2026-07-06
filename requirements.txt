@@ -1,0 +1,2 @@
+# Minimal — the model runs in Ollama's own process, so Python stays lightweight.
+ollama>=0.4.0
