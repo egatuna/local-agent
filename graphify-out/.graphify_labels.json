@@ -1,1 +1,19 @@
-{"0": "Agent Loop & Chat", "1": "CLI & Model Selection", "2": "Verification & Escalation", "3": "Workspace Sandbox & File IO", "4": "Code Execution Tools", "5": "Trust-No-Model Principle", "6": "Ollama Runtime & Context", "7": "Tool-Loop Concepts", "8": "Escalation & Model Tiers", "9": "Bootstrap Setup"}
+{
+  "0": "Agent Loop & Chat",
+  "1": "CLI & Model Selection",
+  "2": "Verification & Escalation",
+  "3": "Workspace Sandbox & File IO",
+  "4": "Code Execution Tools",
+  "5": "Trust-No-Model Principle",
+  "6": "Ollama Runtime & Context",
+  "7": "Tool-Loop Concepts",
+  "8": "Escalation & Model Tiers",
+  "9": "Bootstrap Setup",
+  "10": "Independent finish verification",
+  "11": "Loop detection with escalating nudges",
+  "12": "Model tiers (Speed/Quality/Mid)",
+  "13": "ReAct tool loop (local model)",
+  "14": "Run transcripts (.runs/*.jsonl)",
+  "15": "Trust No Model principle",
+  "16": "Workspace-scoped sandboxing"
+}

@@ -125,7 +125,11 @@ def _safe_path(rel: str) -> Path:
         if rel.startswith(prefix):
             rel = rel[len(prefix):]
     p = (WORKSPACE / rel).resolve()
-    if not str(p).startswith(str(WORKSPACE)):
+    # Boundary check, not a string prefix: startswith(str(WORKSPACE)) also
+    # matched sibling dirs like <ws>-evil / <ws>2, letting '../workspace-evil/x'
+    # escape. Compare on path parentage instead.
+    ws = WORKSPACE.resolve()
+    if p != ws and ws not in p.parents:
         raise ValueError(f"Path '{rel}' escapes the workspace sandbox.")
     return p
 
