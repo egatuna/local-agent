@@ -36,8 +36,9 @@ python3 local_agent.py --escalate "harder task" # speed tier + Claude Code safet
 python3 local_agent.py                          # interactive REPL
 ```
 
-For reliable escalation, mint a long-lived token once (`claude setup-token`) and export
-it as `CLAUDE_CODE_OAUTH_TOKEN` in `~/.zshenv`. The agent will also find it there itself.
+Escalation shells out to the [Claude Code](https://docs.claude.com/en/docs/claude-code) CLI and
+uses its existing login, so run `claude` once and sign in before using `--escalate`. The agent
+never reads or stores credentials itself.
 
 ## Model tiers (benchmarked 2026-07-06, 8 GB M3)
 
@@ -67,6 +68,11 @@ to halve the context window's memory cost.
   Claude Code, sandboxed to the workspace with a tight tool allowlist.
 - **Run transcripts** — every run logs to `.runs/*.jsonl` for postmortems.
 - **Live tok/s** per step, so swap-induced slowdowns are visible as they happen.
+
+## Requirements
+
+macOS on Apple Silicon (bootstrap uses Homebrew), Python 3.10+, [Ollama](https://ollama.com), and about 2 GB free RAM for the
+speed tier. `bootstrap.sh` installs the Python dependencies and pulls the models.
 
 ## Configuration
 

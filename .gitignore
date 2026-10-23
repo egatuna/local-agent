@@ -11,3 +11,6 @@ __pycache__/
 # graphify local state (machine-specific)
 graphify-out/.graphify_python
 graphify-out/.graphify_root
+
+# graphify knowledge graph — generated locally, not source
+graphify-out/

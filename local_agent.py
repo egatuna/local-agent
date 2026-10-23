@@ -586,20 +586,12 @@ def escalate_to_claude(task: str, failure: str) -> str:
         "make sure a test_*.py file exists and passes. Verify by running the tests "
         "before you stop."
     )
-    env = os.environ.copy()
-    if not env.get("CLAUDE_CODE_OAUTH_TOKEN"):
-        # Launched from a context that didn't source ~/.zshenv (script, cron):
-        # pick up the long-lived token directly so auth never depends on the shell.
-        zshenv = Path.home() / ".zshenv"
-        if zshenv.exists():
-            m = re.search(r"CLAUDE_CODE_OAUTH_TOKEN=(\S+)", zshenv.read_text())
-            if m:
-                env["CLAUDE_CODE_OAUTH_TOKEN"] = m.group(1).strip("'\"")
+    # Auth is the claude CLI's own login; never read credentials out of shell files.
     print("  [escalate] local model failed — handing off to Claude Code…")
     try:
         proc = subprocess.run(
             ["claude", "-p", prompt, "--allowedTools", ESCALATE_TOOLS],
-            cwd=WORKSPACE, capture_output=True, text=True, timeout=900, env=env,
+            cwd=WORKSPACE, capture_output=True, text=True, timeout=900,
         )
     except subprocess.TimeoutExpired:
         return "Escalation failed: Claude Code timed out after 15 minutes."
@@ -608,8 +600,7 @@ def escalate_to_claude(task: str, failure: str) -> str:
     tail = (proc.stdout or "").strip()[-1200:] or (proc.stderr or "").strip()[-400:]
     if "Not logged in" in tail:
         return ("Escalation unavailable: the claude CLI has no valid credentials in "
-                "non-interactive mode. One-time fix: run `claude setup-token` in a "
-                "terminal, then `export CLAUDE_CODE_OAUTH_TOKEN=<token>` (e.g. in ~/.zshenv). "
+                "non-interactive mode. Fix: run `claude` once in a terminal and log in. "
                 f"The local model's failure stands: {failure}")
     problem = independent_verification(task)
     if problem is None and proc.returncode == 0:
